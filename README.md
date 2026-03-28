@@ -1,64 +1,40 @@
-# Claude Scientific Skills
-
-> **New: [K-Dense BYOK](https://github.com/K-Dense-AI/k-dense-byok)** — A free, open-source AI co-scientist that runs on your desktop, powered by Claude Scientific Skills. Bring your own API keys, pick from 40+ models, and get a full research workspace with web search, file handling, 250+ scientific databases, and access to all 170+ skills in this repo. Your data stays on your computer, and you can optionally scale to cloud compute via [Modal](https://modal.com/) for heavy workloads. [Get started here.](https://github.com/K-Dense-AI/k-dense-byok)
+# Scientific Agent Orchestrator
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE.md)
-[![Skills](https://img.shields.io/badge/Skills-170-brightgreen.svg)](#whats-included)
-[![Databases](https://img.shields.io/badge/Databases-250%2B-orange.svg)](#whats-included)
-[![Agent Skills](https://img.shields.io/badge/Standard-Agent_Skills-blueviolet.svg)](https://agentskills.io/)
-[![Works with](https://img.shields.io/badge/Works_with-Cursor_|_Claude_Code_|_Codex-blue.svg)](#getting-started)
-[![X](https://img.shields.io/badge/Follow_on_X-%40k__dense__ai-000000?logo=x)](https://x.com/k_dense_ai)
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-K--Dense_Inc.-0A66C2?logo=linkedin)](https://www.linkedin.com/company/k-dense-inc)
-[![YouTube](https://img.shields.io/badge/YouTube-K--Dense_Inc.-FF0000?logo=youtube)](https://www.youtube.com/@K-Dense-Inc)
+[![Skills](https://img.shields.io/badge/Skills-99-brightgreen.svg)](#whats-included)
+[![Agents](https://img.shields.io/badge/Agents-4-blueviolet.svg)](#agents)
+[![Works with](https://img.shields.io/badge/Works_with-Claude_Code-blue.svg)](#getting-started)
 
-A comprehensive collection of **170+ ready-to-use scientific and research skills** (now including cancer genomics, drug-target binding, molecular dynamics, RNA velocity, geospatial science, time series forecasting, FRED economic data, and more) for any AI agent that supports the open [Agent Skills](https://agentskills.io/) standard, created by [K-Dense](https://k-dense.ai). Works with **Cursor, Claude Code, Codex, and more**. Transform your AI agent into a research assistant capable of executing complex multi-step scientific workflows across biology, chemistry, medicine, and beyond.
-
-<p align="center">
-  <a href="https://k-dense.ai">
-    <img src="docs/k-dense-web.gif" alt="K-Dense Web Demo" width="800"/>
-  </a>
-  <br/>
-  <em>The demo above shows <a href="https://k-dense.ai">K-Dense Web</a> — the hosted platform built on top of these skills. Claude Scientific Skills is the open-source skill collection; K-Dense Web is the full AI co-scientist platform with more power and zero setup.</em>
-</p>
+A scientific agent orchestrator for **Claude Code**, focused on **computational biology, bioinformatics, statistics, and machine learning**. Built on top of [K-Dense's](https://k-dense.ai) open [Agent Skills](https://agentskills.io/) standard, this repo provides 99 curated skills and 4 specialized sub-agents that route scientific tasks intelligently across domains.
 
 ---
 
-These skills enable your AI agent to seamlessly work with specialized scientific libraries, databases, and tools across multiple scientific domains. While the agent can use any Python package or API on its own, these explicitly defined skills provide curated documentation and examples that make it significantly stronger and more reliable for the workflows below:
-- 🧬 Bioinformatics & Genomics - Sequence analysis, single-cell RNA-seq, gene regulatory networks, variant annotation, phylogenetic analysis
-- 🧪 Cheminformatics & Drug Discovery - Molecular property prediction, virtual screening, ADMET analysis, molecular docking, lead optimization
-- 🔬 Proteomics & Mass Spectrometry - LC-MS/MS processing, peptide identification, spectral matching, protein quantification
-- 🏥 Clinical Research & Precision Medicine - Clinical trials, pharmacogenomics, variant interpretation, drug safety, clinical decision support, treatment planning
-- 🧠 Healthcare AI & Clinical ML - EHR analysis, physiological signal processing, medical imaging, clinical prediction models
-- 🖼️ Medical Imaging & Digital Pathology - DICOM processing, whole slide image analysis, computational pathology, radiology workflows
-- 🤖 Machine Learning & AI - Deep learning, reinforcement learning, time series analysis, model interpretability, Bayesian methods
-- 🔮 Materials Science & Chemistry - Crystal structure analysis, phase diagrams, metabolic modeling, computational chemistry
-- 🌌 Physics & Astronomy - Astronomical data analysis, coordinate transformations, cosmological calculations, symbolic mathematics, physics computations
-- ⚙️ Engineering & Simulation - Discrete-event simulation, multi-objective optimization, metabolic engineering, systems modeling, process optimization
-- 📊 Data Analysis & Visualization - Statistical analysis, network analysis, time series, publication-quality figures, large-scale data processing, EDA
-- 🌍 Geospatial Science & Remote Sensing - Satellite imagery processing, GIS analysis, spatial statistics, terrain analysis, machine learning for Earth observation
-- 🧪 Laboratory Automation - Liquid handling protocols, lab equipment control, workflow automation, LIMS integration
-- 📚 Scientific Communication - Literature review, peer review, scientific writing, document processing, posters, slides, schematics, citation management
-- 🔬 Multi-omics & Systems Biology - Multi-modal data integration, pathway analysis, network biology, systems-level insights
-- 🧬 Protein Engineering & Design - Protein language models, structure prediction, sequence design, function annotation
-- 🎓 Research Methodology - Hypothesis generation, scientific brainstorming, critical thinking, grant writing, scholar evaluation
+## Agents
 
-**Transform your AI coding agent into an 'AI Scientist' on your desktop!**
+| Agent | Domain |
+|---|---|
+| [bioinformatics-analyst](agents/bioinformatics-analyst/AGENT.md) | NGS, single-cell omics, sequence analysis, genomic databases |
+| [ml-researcher](agents/ml-researcher/AGENT.md) | Deep learning, GNNs, transformers, time-series, classical ML |
+| [statistics-advisor](agents/statistics-advisor/AGENT.md) | Experimental design, Bayesian inference, survival analysis |
+| [literature-synthesizer](agents/literature-synthesizer/AGENT.md) | Literature review, hypothesis generation, scientific writing, grants |
 
-> ⭐ **If you find this repository useful**, please consider giving it a star! It helps others discover these tools and encourages us to continue maintaining and expanding this collection.
-
-> 🎬 **New to Claude Scientific Skills?** Watch our [Getting Started with Claude Scientific Skills](https://youtu.be/ZxbnDaD_FVg) video for a quick walkthrough.
+See [CLAUDE.md](CLAUDE.md) for the full routing table and coordination protocol.
 
 ---
 
 ## 📦 What's Included
 
-This repository provides **170 scientific and research skills** organized into the following categories:
+This repository provides **99 scientific skills** focused on:
 
-- **250+ Scientific & Financial Databases** - Collectively, these skills provide access to over 250 databases and data sources. Dedicated skills cover PubMed, ChEMBL, UniProt, COSMIC, ClinicalTrials.gov, SEC EDGAR, Alpha Vantage, and more; multi-database packages like BioServices (~40 bioinformatics services + 30+ PSICQUIC interaction databases), BioPython (38 NCBI sub-databases via Entrez), and gget (20+ genomics databases) account for the rest
-- **60+ Optimized Python Package Skills** - Explicitly defined skills for RDKit, Scanpy, PyTorch Lightning, scikit-learn, BioPython, pyzotero, BioServices, PennyLane, Qiskit, OpenMM, MDAnalysis, scVelo, TimesFM, and others — with curated documentation, examples, and best practices. Note: the agent can write code using *any* Python package, not just these; these skills simply provide stronger, more reliable performance for the packages listed
-- **15+ Scientific Integration Skills** - Explicitly defined skills for Benchling, DNAnexus, LatchBio, OMERO, Protocols.io, and more. Again, the agent is not limited to these — any API or platform reachable from Python is fair game; these skills are the optimized, pre-documented paths
-- **35+ Analysis & Communication Tools** - Literature review, scientific writing, peer review, document processing, posters, slides, schematics, infographics, Mermaid diagrams, and more
-- **10+ Research & Clinical Tools** - Hypothesis generation, grant writing, clinical decision support, treatment plans, regulatory compliance
+- **Bioinformatics / Genomics Packages** — Scanpy, scVI-tools, Biopython, DeepTools, PyDESeq2, PySAM, scikit-bio, phylogenetics, and more
+- **Single-Cell / Spatial Biology** — Scanpy, scVI-tools, scVelo, AnnData, CELLxGENE Census
+- **Biology & Literature Databases** — PubMed, GEO, UniProt, Ensembl, KEGG, Reactome, HMDB, OpenAlex, arXiv, bioRxiv
+- **Clinical / Translational Databases** — ClinicalTrials, COSMIC, DepMap, cBioPortal, Open Targets, PharmGKB
+- **Statistics & ML** — PyMC, statsmodels, scikit-learn, scikit-survival, SHAP, UMAP, TimesFM, aeon
+- **Deep Learning** — PyTorch Lightning, Transformers, PyG (torch-geometric), TorchDrug
+- **Visualization** — matplotlib, seaborn, plotly, networkx
+- **Scientific Communication** — literature-review, scientific-writing, peer-review, research-grants, hypothesis-generation, latex-posters, scientific-slides
+- **File Handling / Utility** — PDF, DOCX, XLSX, PPTX, markitdown, get-available-resources
 
 Each skill includes:
 - ✅ Comprehensive documentation (`SKILL.md`)
@@ -90,52 +66,42 @@ Each skill includes:
 
 ---
 
-## 🚀 Why Use This?
-
-### ⚡ **Accelerate Your Research**
-- **Save Days of Work** - Skip API documentation research and integration setup
-- **Production-Ready Code** - Tested, validated examples following scientific best practices
-- **Multi-Step Workflows** - Execute complex pipelines with a single prompt
-
-### 🎯 **Comprehensive Coverage**
-- **170 Skills** - Extensive coverage across all major scientific domains
-- **250+ Databases** - Collective access to 250+ databases and data sources spanning genomics, chemistry, clinical, financial, and more — through dedicated database skills and multi-database packages like BioServices, BioPython, and gget
-- **60+ Optimized Python Package Skills** - RDKit, Scanpy, PyTorch Lightning, scikit-learn, BioServices, PennyLane, Qiskit, OpenMM, scVelo, TimesFM, and others (the agent can use any Python package; these are the pre-documented, higher-performing paths)
-
-### 🔧 **Easy Integration**
-- **Simple Setup** - Copy skills to your skills directory and start working
-- **Automatic Discovery** - Your agent automatically finds and uses relevant skills
-- **Well Documented** - Each skill includes examples, use cases, and best practices
-
-### 🌟 **Maintained & Supported**
-- **Regular Updates** - Continuously maintained and expanded by K-Dense team
-- **Community Driven** - Open source with active community contributions
-- **Enterprise Ready** - Commercial support available for advanced needs
-
----
-
 ## 🎯 Getting Started
 
-Claude Scientific Skills follows the open [Agent Skills](https://agentskills.io/) standard. Simply copy the skill folders into your skills directory and your AI agent will automatically discover and use them.
+This repo is designed for use with **Claude Code**. Clone the repo and open it as your working directory — `CLAUDE.md` is automatically loaded and activates the orchestrator.
 
 ### Step 1: Clone the Repository
 
 ```bash
-git clone https://github.com/K-Dense-AI/claude-scientific-skills.git
+git clone <this-repo-url>
+cd agent_orchestrator
 ```
 
-### Step 2: Copy Skills to Your Skills Directory
+### Step 2: Open in Claude Code
 
-Copy the individual skill folders from `scientific-skills/` to one of the supported skill directories below. You can install skills **globally** (available across all projects) or **per-project** (available only in that project).
+Open the repo in VS Code with the Claude Code extension, or run `claude` from the repo root. `CLAUDE.md` is automatically discovered.
 
-**Global installation** (recommended — skills available everywhere):
+### Step 3: Install Dependencies (optional)
+
+```bash
+# Install all scientific packages
+bash scripts/install_dependencies.sh
+
+# Or install per domain
+bash scripts/install_dependencies.sh --agent bioinformatics
+bash scripts/install_dependencies.sh --agent ml
+bash scripts/install_dependencies.sh --agent statistics
+```
+
+### Skill Installation (for use in other projects)
+
+Skills follow the [Agent Skills](https://agentskills.io/) standard. Copy individual skill folders from `scientific-skills/` to your global skills directory:
+
+**Global installation** (available across all Claude Code projects):
 
 | Tool | Directory |
 |------|-----------|
-| Cursor | `~/.cursor/skills/` |
 | Claude Code | `~/.claude/skills/` |
-| Codex | `~/.codex/skills/` |
-| Gemini CLI | `~/.gemini/skills/` |
 
 **Project-level installation** (skills scoped to a single project):
 

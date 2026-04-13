@@ -70,4 +70,18 @@ if echo "$COMMAND" | grep -qE "(echo|printf|export)\s+.*['\"]?(sk-[a-zA-Z0-9]{20
     exit 2
 fi
 
+# ── 6. Block git force-push to main/master ───────────────────────────────────
+# Catches: git push --force, git push -f, git push --force-with-lease
+# Only blocks when the target branch resolves to main or master.
+if echo "$COMMAND" | grep -qE '\bgit\s+push\b.*(-f\b|--force\b|--force-with-lease\b)'; then
+    if echo "$COMMAND" | grep -qE '\b(main|master)\b'; then
+        cat >&2 <<'EOF'
+BLOCKED: Force-push to main/master is not allowed.
+If you need to rewrite history on a feature branch, push to that branch instead.
+To update main, use a normal merge or rebase workflow without --force.
+EOF
+        exit 2
+    fi
+fi
+
 exit 0

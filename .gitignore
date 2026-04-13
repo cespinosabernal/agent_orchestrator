@@ -1,5 +1,22 @@
 .DS_Store
 
+# Project repos (cloned into repo/ — each is its own git repo)
+repo/
+
+# Skill symlinks (activated on demand; not committed)
+.claude/skills/*
+!.claude/skills/.gitkeep
+
+# Memory, planning, retrospectives, and handoffs (local session state)
+.claude/memory/*
+!.claude/memory/.gitkeep
+.claude/planning/*
+!.claude/planning/.gitkeep
+.claude/retrospectives/*
+!.claude/retrospectives/.gitkeep
+.claude/handoffs/*
+!.claude/handoffs/.gitkeep
+
 temp/
 
 pyproject.toml

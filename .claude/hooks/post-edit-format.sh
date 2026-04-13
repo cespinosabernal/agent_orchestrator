@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 # post-edit-format.sh
-# PostToolUse hook for Edit and Write on Python files.
-# Runs ruff format + ruff check after Claude edits a .py file.
-# Gracefully skips if ruff is not installed.
+# PostToolUse hook for Edit and Write on Python and R files.
+# Python: runs ruff format + ruff check (falls back to black).
+# R/Rmd/qmd: runs styler::style_file() then lintr::lint() for reporting.
 # Always exits 0 (non-blocking); lint output goes to stdout
 # so Claude sees it as context.
 
@@ -17,31 +17,54 @@ except Exception:
     print('')
 " <<< "$INPUT" 2>/dev/null || echo "")
 
-# Only act on Python files
-[[ "$FILE_PATH" == *.py ]] || exit 0
-
 # Skip if file no longer exists
 [[ -f "$FILE_PATH" ]] || exit 0
 
 ISSUES=""
 
-# ── ruff format (replaces black) ─────────────────────────────────────────────
-if command -v ruff &>/dev/null; then
-    ruff format --quiet "$FILE_PATH" 2>/dev/null || true
-
-    # ── ruff check (lint, no auto-fix — report only) ─────────────────────────
-    LINT=$(ruff check --output-format concise "$FILE_PATH" 2>&1 || true)
-    if [[ -n "$LINT" ]]; then
-        ISSUES="$LINT"
+# ── Python files ─────────────────────────────────────────────────────────────
+if [[ "$FILE_PATH" == *.py ]]; then
+    if command -v ruff &>/dev/null; then
+        ruff format --quiet "$FILE_PATH" 2>/dev/null || true
+        LINT=$(ruff check --output-format concise "$FILE_PATH" 2>&1 || true)
+        if [[ -n "$LINT" ]]; then
+            ISSUES="$LINT"
+        fi
+    elif command -v black &>/dev/null; then
+        black --quiet "$FILE_PATH" 2>/dev/null || true
     fi
-elif command -v black &>/dev/null; then
-    black --quiet "$FILE_PATH" 2>/dev/null || true
-fi
 
-# Print lint issues to stdout so Claude sees them as context
-if [[ -n "$ISSUES" ]]; then
-    echo "[ruff] Lint issues in $FILE_PATH:"
-    echo "$ISSUES"
+    if [[ -n "$ISSUES" ]]; then
+        echo "[ruff] Lint issues in $FILE_PATH:"
+        echo "$ISSUES"
+    fi
+
+# ── R / Rmd / qmd files ──────────────────────────────────────────────────────
+elif [[ "$FILE_PATH" == *.R || "$FILE_PATH" == *.Rmd || "$FILE_PATH" == *.qmd ]]; then
+    if command -v Rscript &>/dev/null; then
+        # Format with styler (silently; modifies file in-place)
+        Rscript -e "
+if (requireNamespace('styler', quietly = TRUE)) {
+  styler::style_file('$FILE_PATH')
+} else {
+  message('[styler] not installed — skipping format')
+}
+" 2>/dev/null || true
+
+        # Lint with lintr (report only, never block)
+        LINT=$(Rscript -e "
+if (requireNamespace('lintr', quietly = TRUE)) {
+  lints <- lintr::lint('$FILE_PATH')
+  if (length(lints) > 0) print(lints)
+} else {
+  message('[lintr] not installed — skipping lint')
+}
+" 2>&1 || true)
+        if [[ -n "$LINT" && "$LINT" != *"not installed"* ]]; then
+            echo "[lintr] Lint issues in $FILE_PATH:"
+            echo "$LINT"
+        fi
+    fi
 fi
 
 exit 0

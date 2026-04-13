@@ -22,7 +22,7 @@ except ImportError:
     sys.exit(1)
 
 REPO_ROOT = Path(__file__).parent.parent
-AGENTS_DIR = REPO_ROOT / "agents"
+AGENTS_DIR = REPO_ROOT / ".claude" / "agents"
 SKILLS_DIR = REPO_ROOT / "scientific-skills"
 
 
@@ -63,7 +63,8 @@ def load_agent_mappings() -> dict[str, list[str]]:
 def get_all_skills() -> list[str]:
     if not SKILLS_DIR.exists():
         return []
-    return sorted(p.name for p in SKILLS_DIR.iterdir() if p.is_dir())
+    # Skills are nested: scientific-skills/<group>/<skill>
+    return sorted(p.name for p in SKILLS_DIR.rglob("*") if p.is_dir() and p.parent != SKILLS_DIR)
 
 
 def main() -> None:

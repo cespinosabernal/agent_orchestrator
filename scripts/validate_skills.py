@@ -79,7 +79,8 @@ def main() -> None:
         print(f"ERROR: scientific-skills/ directory not found at {SKILLS_DIR}", file=sys.stderr)
         sys.exit(1)
 
-    skill_dirs = sorted(p for p in SKILLS_DIR.iterdir() if p.is_dir())
+    # Skills are now nested: scientific-skills/<group>/<skill>
+    skill_dirs = sorted(p for p in SKILLS_DIR.rglob("*") if p.is_dir() and p.parent != SKILLS_DIR)
     if not skill_dirs:
         print("ERROR: No skill directories found", file=sys.stderr)
         sys.exit(1)

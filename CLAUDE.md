@@ -2,13 +2,13 @@
 
 ## Identity and Mission
 
-This is a scientific agent orchestrator for **computational biology, bioinformatics, statistics, and machine learning**. It provides 99 curated skills and 4 specialized sub-agents to support the full scientific workflow: data acquisition, analysis, modeling, statistical validation, and communication.
+This is a scientific agent orchestrator for **computational biology, bioinformatics, statistics, and machine learning**. It provides 104 curated skills and 9 specialized sub-agents to support the full scientific workflow: data acquisition, analysis, modeling, statistical validation, and communication.
 
 **In scope:** single-cell and bulk omics, NGS pipelines, biological sequence analysis, statistical modeling, machine learning on biological data, time-series analysis, literature synthesis, scientific writing, and translational database queries.
 
 **Out of scope:** financial analysis, quantum hardware control, clinical decision support, drug synthesis, materials science, geospatial mapping, and medical imaging pipelines.
 
-Skills live in `scientific-skills/<skill-name>/SKILL.md`. Agents live in `agents/<agent-name>/AGENT.md`. Before activating a skill, confirm it exists in `scientific-skills/`.
+Skills live in `scientific-skills/<skill-name>/SKILL.md`. Agents live in `.claude/agents/<agent-name>/AGENT.md`. Before activating a skill, confirm it exists in `scientific-skills/`.
 
 ---
 
@@ -63,13 +63,25 @@ Route every task to the primary agent whose domain best matches the request. Whe
 | Research poster creation | literature-synthesizer | latex-posters, pptx-posters |
 | Slide deck for research talk | literature-synthesizer | scientific-slides |
 | Citation management | literature-synthesizer | citation-management, pyzotero |
+| scRNA-seq in R (Seurat), bulk RNA-seq (DESeq2/edgeR) | r-bioinformatics-writer | seurat, bioconductor, rmarkdown |
+| R Markdown reproducible report writing | r-bioinformatics-writer | rmarkdown, seurat, bioconductor |
+| Publication figures in R, ggplot2, multi-panel | r-plotting-stats | ggplot2, statistical-analysis |
+| Statistical tests, mixed models, power analysis in R | r-plotting-stats | ggplot2, statistical-analysis |
+| Review R code (style, renv, reproducibility) | r-code-reviewer | rmarkdown |
+| Review Python code (types, ruff, security) | python-code-reviewer | — |
+| Create or edit a skill or skill mode | skill-writer | skill-authoring |
 
 ### Agent Definitions
 
-- `agents/bioinformatics-analyst/AGENT.md` — NGS, omics, sequences, genomic databases
-- `agents/ml-researcher/AGENT.md` — deep learning, GNNs, transformers, classical ML
-- `agents/statistics-advisor/AGENT.md` — experimental design, Bayesian, survival analysis
-- `agents/literature-synthesizer/AGENT.md` — literature search, writing, grants, peer review
+- `.claude/agents/bioinformatics-analyst/AGENT.md` — NGS, omics, sequences, genomic databases (Python)
+- `.claude/agents/ml-researcher/AGENT.md` — deep learning, GNNs, transformers, classical ML
+- `.claude/agents/statistics-advisor/AGENT.md` — experimental design, Bayesian, survival analysis
+- `.claude/agents/literature-synthesizer/AGENT.md` — literature search, writing, grants, peer review
+- `.claude/agents/r-bioinformatics-writer/AGENT.md` — R-based omics analyses in R Markdown (Seurat, DESeq2)
+- `.claude/agents/r-plotting-stats/AGENT.md` — publication figures and statistical tests in R (ggplot2)
+- `.claude/agents/r-code-reviewer/AGENT.md` — R code review: style, renv, reproducibility, statistics
+- `.claude/agents/python-code-reviewer/AGENT.md` — Python code review: types, ruff, security, docstrings
+- `.claude/agents/skill-writer/AGENT.md` — create and edit skills and skill modes
 
 ---
 
@@ -146,6 +158,45 @@ mamba install -c conda-forge scanpy pytorch-lightning
 ```
 
 When running scripts or advising on installation, always use `mamba install` syntax and specify the target environment. Direct `pip install` to base is forbidden.
+
+---
+
+## Skill Modes
+
+Skills are symlinked into `.claude/skills/` on demand to keep context lean. By default no skills are active.
+
+```bash
+bash .claude/scripts/skills.sh activate <mode>   # enable a skill group
+bash .claude/scripts/skills.sh deactivate [mode] # remove symlinks (all or one)
+bash .claude/scripts/skills.sh status            # list currently active skills
+```
+
+| Mode | Contents |
+|---|---|
+| `bioinformatics` | scanpy, scvi-tools, biopython, pydeseq2, anndata, pysam, deeptools, polars-bio, scikit-bio, cellxgene-census, gget, scvelo, arboreto, tiledbvcf, cobrapy |
+| `bioinformatics-extended` | etetoolkit, phylogenetics, flowio, geniml, gtars, neuropixels-analysis, bioservices |
+| `ml` | pytorch-lightning, transformers, torch-geometric, scikit-learn, umap-learn, shap, timesfm-forecasting, aeon, neurokit2, stable-baselines3, pymoo, torchdrug |
+| `stats` | pymc, statsmodels, scikit-survival, statistical-analysis, sympy |
+| `databases` | geo-database, uniprot-database, kegg-database, ensembl-database, pubmed-database, biorxiv-database, arxiv-database, openalex-database, gene-database, reactome-database, bgpt-paper-search, hmdb-database |
+| `clinical-databases` | cbioportal-database, depmap, bindingdb-database, brenda-database, clinpgx-database, fda-database, metabolomics-workbench-database, opentargets-database, primekg, pyhealth, clinicaltrials-database, cosmic-database |
+| `writing` | literature-review, scientific-writing, hypothesis-generation, peer-review, research-grants, scientific-brainstorming, scientific-visualization, scientific-slides, exploratory-data-analysis, general-writing, markdown-mermaid-writing, rmarkdown, scholar-evaluation, scientific-critical-thinking, venue-templates |
+| `publishing` | citation-management, pyzotero, latex-posters, pptx-posters, hypogenic, scientific-schematics |
+| `utility` | docx, pdf, pptx, xlsx, markitdown, matlab, perplexity-search, parallel-web, research-lookup, get-available-resources, jupyter-notebooks, simpy, skill-authoring |
+| `visualization` | matplotlib, networkx, plotly, seaborn, ggplot2 |
+| `r` | rmarkdown, seurat, bioconductor, ggplot2 |
+| `all` | Everything in `scientific-skills/` |
+
+---
+
+## Project Repos
+
+External project repositories are cloned into `repo/<project-name>/`. Each is an independent git repo — never `git add` files from `repo/` into this orchestrator repo.
+
+```bash
+git clone <url> repo/<project-name>
+```
+
+If a project has its own `CLAUDE.md`, it auto-loads when Claude works in that directory and overrides defaults for that project. Each project repo should have its own `.gitignore` covering data files, outputs, and environment directories.
 
 ---
 

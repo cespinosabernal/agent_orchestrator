@@ -3,7 +3,7 @@
 ## Resource Check
 Before any compute-intensive task (training, >100K cells, NGS pipeline), run:
 ```
-python scripts/check_environment.py --quick
+python .claude/scripts/check_environment.py --quick
 ```
 Adjust batch sizes and in-memory vs. file-backed strategies based on available RAM/GPU.
 

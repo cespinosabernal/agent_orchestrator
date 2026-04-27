@@ -24,7 +24,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash .claude/hooks/pre-bash-safety.sh"
+            "command": "bash /Users/camiloe/Downloads/GitHub/agent_orchestrator/.claude/hooks/pre-bash-safety.sh"
           }
         ]
       }
@@ -35,7 +35,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash .claude/hooks/post-edit-format.sh"
+            "command": "bash /Users/camiloe/Downloads/GitHub/agent_orchestrator/.claude/hooks/post-edit-format.sh"
           }
         ]
       }
@@ -45,7 +45,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash .claude/hooks/notify.sh"
+            "command": "bash /Users/camiloe/Downloads/GitHub/agent_orchestrator/.claude/hooks/notify.sh"
           }
         ]
       }
@@ -56,7 +56,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash .claude/hooks/session-start-compact.sh"
+            "command": "bash /Users/camiloe/Downloads/GitHub/agent_orchestrator/.claude/hooks/session-start-compact.sh"
           }
         ]
       }

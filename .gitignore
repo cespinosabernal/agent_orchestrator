@@ -1,4 +1,6 @@
+# OS
 .DS_Store
+Thumbs.db
 
 # Project repos (cloned into repo/ — each is its own git repo)
 repo/
@@ -17,17 +19,92 @@ repo/
 .claude/handoffs/*
 !.claude/handoffs/.gitkeep
 
-temp/
+# Python environments and caches
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.python-version
+*.egg-info/
+dist/
+build/
 
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb output cells (run `jupyter nbconvert --clear-output` before committing)
+
+# Package management
 pyproject.toml
 uv.lock
 
-.venv/
-.python-version
-main.py
-
-__pycache__/
-
+# Environment variables and secrets
 .env
+.env.*
+*.pem
+*.key
 
+# Data files
+*.csv
+*.tsv
+*.xlsx
+*.xls
+*.parquet
+*.feather
+*.arrow
+*.json.gz
+*.ndjson
+
+# Bioinformatics data formats
+*.fastq
+*.fastq.gz
+*.fq
+*.fq.gz
+*.bam
+*.bam.bai
+*.sam
+*.cram
+*.vcf
+*.vcf.gz
+*.bcf
+*.bed
+*.bed.gz
+*.bw
+*.bigwig
+*.bigBed
+*.bb
+*.gtf
+*.gff
+*.gff3
+*.fasta
+*.fa
+*.fna
+*.faa
+*.h5ad
+*.loom
+*.zarr/
+*.h5
+*.hdf5
+
+# Large output files
+*.pdf
+*.png
+*.svg
+*.eps
+*.tiff
+*.tif
+figures/
+outputs/
+results/
+
+# Temporary and scratch files
+temp/
+tmp/
+scratch/
+*.tmp
+*.log
+*.out
+
+# Misc scripts not meant for repo
+main.py
 scan_skills.py
